@@ -12,7 +12,7 @@ Projeto acadêmico de Engenharia de Software. A parte física (ESP32 + câmera) 
 | Caio Santos | Vice-líder |
 | Ezequiel | Integrante |
 | Vinicius Batista | Integrante |
-| Matheus Cerqueira | Integrante |
+| Matheus Alcantara Silva | Integrante |
 
 ## Como funciona
 
