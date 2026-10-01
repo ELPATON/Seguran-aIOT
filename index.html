@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Esta linha faz o site se ajustar ao celular. Não apague! -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casa Segura</title>
+
+  <!-- Liga este arquivo ao CSS (visual) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========== LOGIN (só aparece com Supabase configurado) ========== -->
+  <div id="login" class="login escondida">
+    <form id="form-login" class="cartao">
+      <h2>Casa Segura</h2>
+      <label>E-mail <input type="email" id="login-email" required autocomplete="username"></label>
+      <label>Senha <input type="password" id="login-senha" required autocomplete="current-password"></label>
+      <button type="submit">Entrar</button>
+      <p class="vermelho" id="login-erro"></p>
+    </form>
+  </div>
+
+  <div class="app escondida" id="app">
+
+    <!-- ========== MENU LATERAL ========== -->
+    <!-- Cada link tem um "data-tela": é o nome da tela que ele abre -->
+    <aside class="menu" id="menu">
+      <h1 class="logo">Casa Segura</h1>
+      <nav>
+        <a href="#" class="ativo" data-tela="inicio">Início</a>
+        <a href="#" data-tela="alertas">Alertas</a>
+        <a href="#" data-tela="camera">Câmera</a>
+        <a href="#" data-tela="historico">Histórico</a>
+        <a href="#" data-tela="config">Configurações</a>
+      </nav>
+    </aside>
+
+    <div class="conteudo">
+
+      <!-- ========== BARRA DO TOPO ========== -->
+      <header class="topo">
+        <!-- Botão ☰ (só aparece no celular) -->
+        <button id="btn-menu" class="btn-menu" aria-label="Abrir menu">☰</button>
+        <span id="usuario"></span>
+        <a href="#" id="btn-sair">Sair</a>
+      </header>
+
+      <main>
+
+        <!-- ========== TELA: INÍCIO ========== -->
+        <section id="tela-inicio" class="tela">
+          <h2>Início</h2>
+          <p>Aqui está o resumo da sua residência.</p>
+
+          <!-- Dois cartões lado a lado: Sistema e Câmera -->
+          <div class="grade-2">
+            <div class="cartao">
+              <h3>Sistema</h3>
+              <p>Status: <strong class="verde" id="status-sistema">Ativo</strong></p>
+              <p id="desc-sistema">Monitoramento funcionando normalmente.</p>
+            </div>
+            <div class="cartao">
+              <h3>Câmera</h3>
+              <p>Status: <strong class="cinza" id="status-camera">Simulada</strong></p>
+              <p>Sem hardware: imagens vêm do banco.</p>
+            </div>
+          </div>
+
+          <!-- Último alerta: preenchido pelo JavaScript -->
+          <div class="cartao">
+            <h3>Último alerta</h3>
+            <div class="alerta" id="ultimo-alerta"></div>
+          </div>
+
+          <!-- Eventos recentes: tabela preenchida pelo JavaScript -->
+          <div class="cartao">
+            <h3>Eventos recentes</h3>
+            <div class="tabela-rolagem">
+              <table>
+                <thead>
+                  <tr><th>Data</th><th>Horário</th><th>Evento</th><th>Local</th><th>Ação</th></tr>
+                </thead>
+                <tbody id="tabela-recentes"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== TELA: ALERTAS ========== -->
+        <section id="tela-alertas" class="tela escondida">
+          <h2>Alertas</h2>
+          <p>Eventos que precisam da sua atenção.</p>
+          <div class="cartao" id="lista-alertas"></div>
+        </section>
+
+        <!-- ========== TELA: CÂMERA ========== -->
+        <section id="tela-camera" class="tela escondida">
+          <h2>Câmera</h2>
+          <div class="cartao">
+            <div id="camera-box"></div>
+          </div>
+        </section>
+
+        <!-- ========== TELA: HISTÓRICO ========== -->
+        <section id="tela-historico" class="tela escondida">
+          <h2>Histórico</h2>
+          <div class="cartao">
+            <div class="tabela-rolagem">
+              <table>
+                <thead>
+                  <tr><th>Data</th><th>Horário</th><th>Evento</th><th>Local</th><th>Ação</th></tr>
+                </thead>
+                <tbody id="tabela-historico"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== TELA: CONFIGURAÇÕES ========== -->
+        <section id="tela-config" class="tela escondida">
+          <h2>Configurações</h2>
+          <div class="cartao">
+            <p><label><input type="checkbox" id="chk-monitoramento"> Monitoramento ativo</label></p>
+            <p>Sem hardware, os eventos são simulados:</p>
+            <div class="botoes"><button id="btn-simular">Simular evento</button></div>
+            <p class="cinza" id="msg-config"></p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Liga este arquivo ao JavaScript (comportamento). Fica por último de propósito -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

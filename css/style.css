@@ -1,0 +1,154 @@
+/* =====================================================
+   STYLE.CSS - o VISUAL do site (cores, tamanhos, layout)
+   ===================================================== */
+
+/* ---------- 1. CORES (mude aqui e muda o site inteiro) ---------- */
+:root {
+  --fundo: #fafafa;
+  --borda: #222;
+  --texto: #111;
+  --link: #0b5fff;
+  --verde: #12a150;
+  --vermelho: #e00000;
+  --cinza: #666;
+  --destaque-menu: #e8e8ea;
+}
+
+/* ---------- 2. BÁSICO ---------- */
+* { box-sizing: border-box; }  /* facilita calcular tamanhos */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+a { color: var(--link); }
+h2 { margin: 0 0 6px; font-size: 28px; }
+h3 { margin: 0 0 10px; font-size: 18px; }
+
+/* Classes de cor usadas nos status */
+.verde { color: var(--verde); }
+.vermelho { color: var(--vermelho); }
+.cinza { color: var(--cinza); }
+
+/* ---------- 3. ESTRUTURA: menu à esquerda + conteúdo à direita ---------- */
+.app { display: flex; min-height: 100vh; }
+
+.menu {
+  width: 240px;
+  border-right: 1px solid var(--borda);
+  padding: 0 12px;
+}
+.logo {
+  margin: 0 -12px 12px;
+  padding: 16px 20px;
+  font-size: 22px;
+  border-bottom: 1px solid var(--borda);
+}
+.menu nav a {
+  display: block;
+  padding: 8px;
+  margin-bottom: 4px;
+}
+.menu nav a.ativo { background: var(--destaque-menu); }  /* item selecionado */
+
+.conteudo { flex: 1; min-width: 0; }
+
+.topo {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--borda);
+}
+main { padding: 16px 24px; }
+
+/* Botão ☰: escondido no computador */
+.btn-menu {
+  display: none;
+  margin-right: auto;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ---------- 4. CARTÕES ---------- */
+.cartao {
+  border: 1px solid var(--borda);
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+.cartao p { margin: 6px 0; }
+
+/* Dois cartões lado a lado */
+.grade-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.grade-2 .cartao { margin-top: 16px; }
+
+/* ---------- 5. ÚLTIMO ALERTA ---------- */
+.alerta { display: flex; gap: 20px; }
+.alerta img,
+.sem-foto {
+  width: 340px;
+  height: 182px;
+  object-fit: cover;
+  background: #bbb;
+}
+.alerta-info p { margin: 6px 0; }
+
+/* Botões de ação */
+.botoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.botoes button {
+  padding: 8px 14px;
+  border: 1px solid var(--borda);
+  background: #fff;
+  cursor: pointer;
+}
+.botoes .perigo { background: var(--vermelho); color: #fff; border-color: var(--vermelho); }
+
+/* ---------- 6. TABELAS ---------- */
+.tabela-rolagem { overflow-x: auto; }  /* no celular a tabela rola de lado */
+table { width: 100%; border-collapse: collapse; min-width: 480px; }
+th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid #ddd; }
+th { border-bottom: 1px solid #ccc; }
+tr:last-child td { border-bottom: none; }
+
+/* ---------- 7. TELAS ---------- */
+.escondida { display: none !important; }  /* o JS tira/coloca esta classe para trocar de tela */
+
+/* ---------- 8. RESPONSIVO (celular) ----------
+   Tudo aqui dentro só vale quando a tela tem 800px ou menos */
+@media (max-width: 800px) {
+  .btn-menu { display: block; }
+
+  /* Menu vira uma gaveta que fica escondida à esquerda */
+  .menu {
+    position: fixed;
+    top: 0; bottom: 0; left: -260px;
+    width: 240px;
+    background: var(--fundo);
+    z-index: 10;
+    transition: left 0.25s;
+  }
+  .menu.aberto { left: 0; }  /* o JS coloca "aberto" ao tocar no ☰ */
+
+  main { padding: 16px; }
+  .grade-2 { grid-template-columns: 1fr; }   /* cartões um embaixo do outro */
+  .alerta { flex-direction: column; }
+  .alerta img, .sem-foto { width: 100%; height: auto; min-height: 180px; }
+}
+
+/* ---------- 9. LOGIN E EXTRAS ---------- */
+.login { display: flex; justify-content: center; padding: 48px 16px; }
+.login form { width: 100%; max-width: 360px; }
+.login label { display: block; margin-top: 12px; }
+.login input { display: block; width: 100%; padding: 8px; margin-top: 4px; }
+.login button, #btn-simular { padding: 8px 14px; margin-top: 16px; border: 1px solid var(--borda); background: #fff; cursor: pointer; }
+.botoes button:disabled { opacity: .5; cursor: not-allowed; }
+.camera-img { max-width: 100%; border: 1px solid var(--borda); }
