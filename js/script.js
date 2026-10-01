@@ -22,8 +22,8 @@ function esc(t) {  // evita XSS: transforma < > & " ' em texto seguro
   return String(t ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
-function urlSegura(u) {  // só aceita imagens https ou data:image
-  return /^(https:\/\/|data:image\/)/.test(u || "") ? u : "";
+function urlSegura(u) {  // só aceita https, data:image ou arquivos da pasta img/
+  return /^(https:\/\/|data:image\/|img\/[\w.-]+$)/.test(u || "") ? u : "";
 }
 const dataBR = (iso) => new Date(iso).toLocaleDateString("pt-BR");
 const horaBR = (iso) => new Date(iso).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
@@ -135,10 +135,12 @@ async function simularEvento() {
   if (!monitoramento) { $("msg-config").textContent = "Ative o monitoramento para simular eventos."; return; }
   const tipos = ["Pessoa detectada", "Movimento detectado", "Porta aberta"];
   const locais = ["Sala de estar", "Garagem", "Entrada", "Quintal"];
+  const fotos = ["img/imagem1.png", "img/imagem2.jpg"];
   const novo = {
     evento: tipos[Math.floor(Math.random() * tipos.length)],
     local: locais[Math.floor(Math.random() * locais.length)],
-    camera: "CAM-01", acao: "necessaria", imagem: ""
+    camera: "CAM-01", acao: "necessaria",
+    imagem: fotos[Math.floor(Math.random() * fotos.length)]
   };
   $("msg-config").textContent = "";
   if (MODO_DEMO) {
@@ -146,8 +148,9 @@ async function simularEvento() {
     return desenharTudo();
   }
   const { error } = await db.from("eventos").insert(novo);
-  if (error) mostrarErro("Erro ao criar evento: " + error.message);
-  // a tela atualiza sozinha pelo tempo real (assinarTempoReal)
+  if (error) return mostrarErro("Erro ao criar evento: " + error.message);
+  await carregarEventos();
+  $("msg-config").textContent = "Evento criado! Veja em Início.";
 }
 
 async function alternarMonitoramento(ligado) {
