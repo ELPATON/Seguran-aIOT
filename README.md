@@ -51,8 +51,6 @@ casa-segura/
 ├── js/
 │   ├── config.js       # URL e chave anon do Supabase
 │   └── script.js       # lógica do painel
-├── supabase/
-│   └── schema.sql      # tabelas, RLS, Realtime e dados de exemplo
 └── README.md
 ```
 
