@@ -1,8 +1,4 @@
-/* =====================================================
-   STYLE.CSS - o VISUAL do site (cores, tamanhos, layout)
-   ===================================================== */
 
-/* ---------- 1. CORES (mude aqui e muda o site inteiro) ---------- */
 :root {
   --fundo: #fafafa;
   --borda: #222;
@@ -14,8 +10,8 @@
   --destaque-menu: #e8e8ea;
 }
 
-/* ---------- 2. BÁSICO ---------- */
-* { box-sizing: border-box; }  /* facilita calcular tamanhos */
+
+* { box-sizing: border-box; }  
 
 body {
   margin: 0;
@@ -28,12 +24,12 @@ a { color: var(--link); }
 h2 { margin: 0 0 6px; font-size: 28px; }
 h3 { margin: 0 0 10px; font-size: 18px; }
 
-/* Classes de cor usadas nos status */
+
 .verde { color: var(--verde); }
 .vermelho { color: var(--vermelho); }
 .cinza { color: var(--cinza); }
 
-/* ---------- 3. ESTRUTURA: menu à esquerda + conteúdo à direita ---------- */
+
 .app { display: flex; min-height: 100vh; }
 
 .menu {
@@ -65,7 +61,7 @@ h3 { margin: 0 0 10px; font-size: 18px; }
 }
 main { padding: 16px 24px; }
 
-/* Botão ☰: escondido no computador */
+
 .btn-menu {
   display: none;
   margin-right: auto;
@@ -75,7 +71,7 @@ main { padding: 16px 24px; }
   cursor: pointer;
 }
 
-/* ---------- 4. CARTÕES ---------- */
+
 .cartao {
   border: 1px solid var(--borda);
   padding: 16px 20px;
@@ -83,7 +79,7 @@ main { padding: 16px 24px; }
 }
 .cartao p { margin: 6px 0; }
 
-/* Dois cartões lado a lado */
+
 .grade-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -91,7 +87,7 @@ main { padding: 16px 24px; }
 }
 .grade-2 .cartao { margin-top: 16px; }
 
-/* ---------- 5. ÚLTIMO ALERTA ---------- */
+
 .alerta { display: flex; gap: 20px; }
 .alerta img,
 .sem-foto {
@@ -112,22 +108,21 @@ main { padding: 16px 24px; }
 }
 .botoes .perigo { background: var(--vermelho); color: #fff; border-color: var(--vermelho); }
 
-/* ---------- 6. TABELAS ---------- */
-.tabela-rolagem { overflow-x: auto; }  /* no celular a tabela rola de lado */
+
+.tabela-rolagem { overflow-x: auto; }  
 table { width: 100%; border-collapse: collapse; min-width: 480px; }
 th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid #ddd; }
 th { border-bottom: 1px solid #ccc; }
 tr:last-child td { border-bottom: none; }
 
-/* ---------- 7. TELAS ---------- */
-.escondida { display: none !important; }  /* o JS tira/coloca esta classe para trocar de tela */
 
-/* ---------- 8. RESPONSIVO (celular) ----------
-   Tudo aqui dentro só vale quando a tela tem 800px ou menos */
+.escondida { display: none !important; }  
+
+
 @media (max-width: 800px) {
   .btn-menu { display: block; }
 
-  /* Menu vira uma gaveta que fica escondida à esquerda */
+ 
   .menu {
     position: fixed;
     top: 0; bottom: 0; left: -260px;
@@ -136,15 +131,15 @@ tr:last-child td { border-bottom: none; }
     z-index: 10;
     transition: left 0.25s;
   }
-  .menu.aberto { left: 0; }  /* o JS coloca "aberto" ao tocar no ☰ */
+  .menu.aberto { left: 0; } 
 
   main { padding: 16px; }
-  .grade-2 { grid-template-columns: 1fr; }   /* cartões um embaixo do outro */
+  .grade-2 { grid-template-columns: 1fr; }  
   .alerta { flex-direction: column; }
   .alerta img, .sem-foto { width: 100%; height: auto; min-height: 180px; }
 }
 
-/* ---------- 9. LOGIN E EXTRAS ---------- */
+
 .login { display: flex; justify-content: center; padding: 48px 16px; }
 .login form { width: 100%; max-width: 360px; }
 .login label { display: block; margin-top: 12px; }

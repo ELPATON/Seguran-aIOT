@@ -1,11 +1,8 @@
-/* =====================================================
-   SCRIPT.JS - comportamento do site (Supabase + modo demo)
-   ===================================================== */
 
 const MODO_DEMO = !window.SUPABASE_URL || window.SUPABASE_URL.startsWith("COLE");
 const db = MODO_DEMO ? null : window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
-let eventos = [];            // sempre ordenados do mais novo pro mais velho
+let eventos = [];          
 let monitoramento = true;
 
 const acoes = {
@@ -17,19 +14,19 @@ const acoes = {
 };
 const acaoDe = (e) => acoes[e.acao] || { texto: e.acao, cor: "cinza" };
 
-/* ---------- utilidades ---------- */
-function esc(t) {  // evita XSS: transforma < > & " ' em texto seguro
+
+function esc(t) {  
   return String(t ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
-function urlSegura(u) {  // só aceita https, data:image ou arquivos da pasta img/
+function urlSegura(u) {  
   return /^(https:\/\/|data:image\/|img\/[\w.-]+$)/.test(u || "") ? u : "";
 }
 const dataBR = (iso) => new Date(iso).toLocaleDateString("pt-BR");
 const horaBR = (iso) => new Date(iso).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
 const $ = (id) => document.getElementById(id);
 
-/* ---------- desenho das telas ---------- */
+
 function montarLinhas(lista) {
   return lista.map((e) => {
     const a = acaoDe(e);
@@ -94,7 +91,7 @@ function desenharTudo() {
   desenharStatus();
 }
 
-/* ---------- dados (Supabase ou demo) ---------- */
+
 function dadosDemo() {
   const h = (horas) => new Date(Date.now() - horas * 3600e3).toISOString();
   return [
@@ -168,7 +165,7 @@ function assinarTempoReal() {
     .subscribe();
 }
 
-/* ---------- navegação ---------- */
+
 function mostrarTela(nome) {
   document.querySelectorAll(".tela").forEach((t) => t.classList.add("escondida"));
   $("tela-" + nome).classList.remove("escondida");
@@ -180,7 +177,7 @@ document.querySelectorAll(".menu nav a").forEach((link) =>
   link.addEventListener("click", (ev) => { ev.preventDefault(); mostrarTela(link.dataset.tela); }));
 $("btn-menu").addEventListener("click", () => $("menu").classList.toggle("aberto"));
 
-// um único "ouvinte" para todos os botões de ação (em vez de onclick inline)
+
 $("ultimo-alerta").addEventListener("click", (ev) => {
   const b = ev.target.closest("button[data-id]");
   if (b) agir(Number(b.dataset.id), b.dataset.acao);
@@ -188,7 +185,7 @@ $("ultimo-alerta").addEventListener("click", (ev) => {
 $("btn-simular").addEventListener("click", simularEvento);
 $("chk-monitoramento").addEventListener("change", (ev) => alternarMonitoramento(ev.target.checked));
 
-/* ---------- login ---------- */
+
 $("form-login").addEventListener("submit", async (ev) => {
   ev.preventDefault();
   const { error } = await db.auth.signInWithPassword({ email: $("login-email").value, password: $("login-senha").value });
